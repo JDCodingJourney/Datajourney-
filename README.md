@@ -14,25 +14,27 @@ The main purpose is to explore and analyze different trends in the aparments in 
 
 -- 1 What is the average rental and sale price of flats in each city from August 2023 to March 2024?
 
+```sql
 SELECT City, 
-type, 
-ROUND(AVG(price), 2) AS Average_Price
+       type, 
+       ROUND(AVG(price), 2) AS Average_Price
 FROM (
-SELECT City, type, price FROM apartments_pl_2023_08
-UNION ALL
-SELECT City, type, price FROM apartments_pl_2023_09
-UNION ALL
-SELECT City, type, price FROM apartments_pl_2023_10
-UNION ALL
-SELECT City, type, price FROM apartments_pl_2023_11
-UNION ALL
-SELECT City, type, price FROM apartments_pl_2023_12
-UNION ALL
-SELECT City, type, price FROM apartments_pl_2024_01
-UNION ALL 
-SELECT City, type, price FROM apartments_pl_2024_02
-UNION ALL
-SELECT City, type, price FROM apartments_pl_2024_03) AS All_apartments
+    SELECT City, type, price FROM apartments_pl_2023_08
+    UNION ALL
+    SELECT City, type, price FROM apartments_pl_2023_09
+    UNION ALL
+    SELECT City, type, price FROM apartments_pl_2023_10
+    UNION ALL
+    SELECT City, type, price FROM apartments_pl_2023_11
+    UNION ALL
+    SELECT City, type, price FROM apartments_pl_2023_12
+    UNION ALL
+    SELECT City, type, price FROM apartments_pl_2024_01
+    UNION ALL 
+    SELECT City, type, price FROM apartments_pl_2024_02
+    UNION ALL
+    SELECT City, type, price FROM apartments_pl_2024_03
+) AS All_apartments
 WHERE Type = 'apartmentbuilding'
 GROUP BY City, type
 ORDER BY Average_Price DESC;
