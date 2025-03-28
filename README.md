@@ -38,19 +38,23 @@ FROM (
 WHERE Type = 'apartmentbuilding'
 GROUP BY City, type
 ORDER BY Average_Price DESC;
+```
 
 ![image](https://github.com/user-attachments/assets/04219d57-0a50-4628-b77a-8844916ac3ea)
 
 
 -- 2 How many flats in Warsaw are larger than 100 metres?
-
+```sql
 SELECT City, type, squaremeters
 FROM apartments_pl_2023_08
 WHERE Type = 'apartmentbuilding' AND squaremeters > 100 AND City = "Warszawa"
 ORDER BY squareMeters DESC;
+```
+
+![image](https://github.com/user-attachments/assets/3070f0e4-ffb4-4f4e-a3b6-cc5188662a9e)
 
 -- 3 What type of housing is most common in Poland from August 2023 to March 2024?
-
+```sql
 SELECT type, COUNT(*) AS count_of_type
 FROM (
     SELECT type FROM Apartments_pl_2023_08
@@ -72,23 +76,23 @@ FROM (
 GROUP BY type
 ORDER BY count_of_type DESC
 LIMIT 1;
-
+```
 ![image](https://github.com/user-attachments/assets/09427e80-fe39-439d-b65e-5d654ed425b7)
 
 
 -- 4 What are the five most expensive flats in Bydgoszcz in December 2023?
-
+```sql
 SELECT City, type, price, squareMeters
 FROM apartments_pl_2023_12
 WHERE type =  'apartmentbuilding' AND city = 'Bydgoszcz'
 ORDER BY Price DESC
 LIMIT 5
-
+```
 ![image](https://github.com/user-attachments/assets/7e115ed2-0464-4102-924b-dbae3bf1e370)
 
 
 -- 5 Merge all month tables
-
+```sql
 CREATE VIEW Apartments_Poland AS
 SELECT * FROM Apartments_pl_2023_08
 UNION ALL
@@ -105,24 +109,25 @@ UNION ALL
 SELECT * FROM Apartments_pl_2024_02
 UNION ALL
 SELECT * FROM Apartments_pl_2024_03;
-
+```
 ![image](https://github.com/user-attachments/assets/d52f4db6-7b91-431d-b610-3214d2ab3eaa)
 
 
 -- 6  How many flats in Wroclaw have the word ‘balcony’ in their characteristics?
-
+```sql
 SELECT City, COUNT(*) AS total_apartments_with_balcony
 FROM Apartments_Poland
 WHERE City = 'wroclaw' AND hasBalcony = 'yes';
-
+```
 ![image](https://github.com/user-attachments/assets/99b2629f-23a0-4271-ba3e-493d4c27ac7e)
 
 
 -- 7 What type of housing was the most built in Poland during the 1960s and 1990s?
+```sql
 
 SELECT COUNT(*) AS Total_houses, Type
 FROM Apartments_Poland 
 WHERE Type IS NOT NULL AND type <> '' AND BuildYear  BETWEEN 1960 AND 1990 
 GROUP BY Type;
-
+```
 ![image](https://github.com/user-attachments/assets/d3ad2c14-8959-41e4-aa90-a0a757ea12a0)
